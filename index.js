@@ -1,17 +1,30 @@
 const axios = require("axios");
 
-const SYMBOL = "BTCUSDT";
-const SELL_PRICE = 97146.08;
-const BUY_PRICE = 95803.50;
+const symbol = "BTCUSDT";
+const buy_price = 97146.08;
+const sell_price = 97685.21;
+let isOpened = false;
 
-const API_URL = "https://testnet.binance.vision"
+const api_url = "https://testnet.binance.vision";
 
 async function start(){
-    const { data } = await axios.get(`${API_URL}/api/v3/klines?limit=21&interval=15m&symbol=${SYMBOL}`);
+    const { data } = await axios.get(`${api_url}/api/v3/klines?limit=21&interval=15m&symbol=${symbol}`);
 
-    console.log(data);
+    const candle = data[data.length - 1];
+    const now_price = parseFloat(candle[4]);
+
+    console.clear();
+    console.log(now_price);
+
+    if(now_price <= buy_price && !isOpened){
+        console.log("Comprar!");
+        isOpened = true;
+    } else if(now_price >= sell_price && isOpened){
+        console.log("Vender!");
+        isOpened = false;
+    } else{
+        console.log("Não agir!");
+    }
 }
-
-start();
 
 setInterval(start, 3000);
