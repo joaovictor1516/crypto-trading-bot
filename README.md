@@ -1,0 +1,1 @@
+Este é programa é um estudo de como funcionam os bots de criptomoedas.
