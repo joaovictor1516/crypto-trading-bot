@@ -1,6 +1,5 @@
 const axios = require("axios");
 const crypto = require("node:crypto");
-const { URLSearchParams } = require("node:url");
 require("dotenv").config();
 
 const symbol = "BTCUSDT";
